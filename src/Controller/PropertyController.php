@@ -77,13 +77,5 @@ class PropertyController extends AbstractController
             'current_menu' =>'properties'
         ]);
     }
-
-    /**
-     * @Route("properties/text", name="property.text")
-     * @return Response
-     */
-    public function test() {
-        return $this->render('property/test.html.twig');
-    }
     
 }
