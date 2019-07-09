@@ -97,7 +97,7 @@ class Property
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="properties")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="properties")
      */
     private $tags;
 

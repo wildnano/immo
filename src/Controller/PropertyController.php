@@ -82,6 +82,27 @@ class PropertyController extends AbstractController
         ]);
     }
 
+
+    public function edit(Property $property, Request $request)
+    {
+$tag = new Tag();
+$property->addTag($tag);
+
+        $form = $this->createForm(PropertyType::class, $property);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            $this->addFlash('success', 'Property edited with success');
+            return $this->redirectToRoute('admin.property.index');
+        }
+
+        return $this->render('admin/property/edit', [
+            'property' => $property,
+            'form' => $form->createView()
+        ]);
+    }
+
     /**
      * @Route("/properties/{slug}-{id}", name="property.show", requirements={"slug": "[a-z0-9\-]*"})
      * @return Response

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
- *  * @ORM\Table(name="`tag`")
+ * @ORM\Table(name="`tag`")
  */
 class Tag
 {
@@ -25,7 +25,7 @@ class Tag
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Property", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Property", mappedBy="tags")
      */
     private $properties;
 
