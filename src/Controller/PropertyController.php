@@ -11,10 +11,13 @@ use App\Notification\ContactNotification;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * Class PropertyController
@@ -83,7 +86,7 @@ class PropertyController extends AbstractController
     }
 
 
-    public function edit(Property $property, Request $request)
+    public function edit(Property $property, Request $request, CacheManager $cacheManager, UploaderHelper $helper)
     {
 $tag = new Tag();
 $property->addTag($tag);
@@ -92,6 +95,9 @@ $property->addTag($tag);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+//            if($property->getImageFile() instanceof UploadedFile) {
+//                $cacheManager->remove($helper->asset($property, 'imageFile'));
+//            }
             $this->em->flush();
             $this->addFlash('success', 'Property edited with success');
             return $this->redirectToRoute('admin.property.index');
